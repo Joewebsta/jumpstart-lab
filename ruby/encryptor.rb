@@ -1,22 +1,19 @@
 class Encryptor
-  def cipher
-    { 'a' => 'n', 'b' => 'o', 'c' => 'p', 'd' => 'q',
-      'e' => 'r', 'f' => 's', 'g' => 't', 'h' => 'u',
-      'i' => 'v', 'j' => 'w', 'k' => 'x', 'l' => 'y',
-      'm' => 'z', 'n' => 'a', 'o' => 'b', 'p' => 'c',
-      'q' => 'd', 'r' => 'e', 's' => 'f', 't' => 'g',
-      'u' => 'h', 'v' => 'i', 'w' => 'j', 'x' => 'k',
-      'y' => 'l', 'z' => 'm' }
+  def cipher(rotation)
+    chars = (' '..'z').to_a
+    rotated_chars = chars.rotate(rotation)
+    Hash[chars.zip(rotated_chars)]
   end
 
-  def encrypt_letter(letter)
-    cipher[letter.downcase]
+  def encrypt_letter(letter, rotation)
+    cipher_for_rotation = cipher(rotation)
+    cipher_for_rotation[letter]
   end
 
-  def encrypt(string)
+  def encrypt(string, rotation)
     letters = string.split('')
     encrypted_letters = letters.map do |letter|
-      letter == ' ' ? ' ' : encrypt_letter(letter)
+      letter == ' ' ? ' ' : encrypt_letter(letter, rotation)
     end
     encrypted_letters.join
   end
@@ -27,3 +24,4 @@ class Encryptor
 end
 
 e = Encryptor.new
+puts e.encrypt('Hello World', 13)
