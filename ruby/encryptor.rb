@@ -1,6 +1,6 @@
 class Encryptor
   def cipher(rotation)
-    chars = (' '..'z').to_a
+    chars = ('a'..'z').to_a + ('A'..'Z').to_a
     rotated_chars = chars.rotate(rotation)
     Hash[chars.zip(rotated_chars)]
   end
