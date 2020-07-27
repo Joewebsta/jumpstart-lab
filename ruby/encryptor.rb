@@ -9,7 +9,16 @@ class Encryptor
       'y' => 'l', 'z' => 'm' }
   end
 
-  def encrypt(letter)
-    cipher[letter]
+  def encrypt_letter(letter)
+    cipher[letter.downcase]
+  end
+
+  def encrypt(string)
+    letters = string.split('')
+    encrypted_letters = letters.map { |letter| encrypt_letter(letter) }
+    encrypted_letters.join
   end
 end
+
+e = Encryptor.new
+puts e.encrypt('hello world')
