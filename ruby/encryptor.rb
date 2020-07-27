@@ -15,10 +15,15 @@ class Encryptor
 
   def encrypt(string)
     letters = string.split('')
-    encrypted_letters = letters.map { |letter| encrypt_letter(letter) }
+    encrypted_letters = letters.map do |letter|
+      letter == ' ' ? ' ' : encrypt_letter(letter)
+    end
     encrypted_letters.join
+  end
+
+  def decrypt(string)
+    encrypt(string)
   end
 end
 
 e = Encryptor.new
-puts e.encrypt('hello world')
