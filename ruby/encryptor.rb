@@ -18,8 +18,8 @@ class Encryptor
     encrypted_letters.join
   end
 
-  def decrypt(string)
-    encrypt(string)
+  def decrypt(string, rotation)
+    encrypt(string, -rotation)
   end
 end
 
