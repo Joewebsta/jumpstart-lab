@@ -21,7 +21,17 @@ class Encryptor
   def decrypt(string, rotation)
     encrypt(string, -rotation)
   end
+
+  def encrypt_file(filename, rotation)
+    file_text = File.open(filename, 'r').read
+    output = encrypt(file_text, rotation)
+
+    encrypted_file = File.open(filename + '.encrypted', 'w')
+    encrypted_file.write(output)
+    encrypted_file.close
+  end
 end
 
 e = Encryptor.new
-puts e.encrypt('Hello World', 13)
+puts e.encrypt('My name is Joe Webster', 13)
+puts e.encrypt_file('secret.txt', 13)
