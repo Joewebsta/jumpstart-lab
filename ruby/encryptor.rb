@@ -30,8 +30,19 @@ class Encryptor
     encrypted_file.write(output)
     encrypted_file.close
   end
+
+  def decrypt_file(filename, rotation)
+    file_text = File.open(filename, 'r').read
+    output = encrypt(file_text, -rotation)
+
+    output_filename = filename.gsub('encrypted', 'decrypted')
+    decrypted_file = File.open(output_filename, 'w')
+    decrypted_file.write(output)
+    decrypted_file.close
+  end
 end
 
 e = Encryptor.new
-puts e.encrypt('My name is Joe Webster', 13)
+# puts e.encrypt('My name is Joe Webster', 13)
 puts e.encrypt_file('secret.txt', 13)
+puts e.decrypt_file('secret.txt.encrypted', 13)
