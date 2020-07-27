@@ -43,13 +43,18 @@ class Encryptor
     decrypted_file.close
   end
 
+  def supported_characters
+    (' '..'z').to_a
+  end
+
   def crack(string)
-    (1..91).each { |idx| puts decrypt(string, idx) }
+    supported_characters.length.times.map { |attempt| "Attempt #{attempt + 1}: #{decrypt(string, attempt)}" }
   end
 end
 
 e = Encryptor.new
-puts e.encrypt('Hello world', 13)
+# puts e.encrypt('Hello world', 13)
 # puts e.encrypt_file('secret.txt', 13)
 # puts e.decrypt_file('secret.txt.encrypted', 13)
-e.crack('f w)0/6X0// -6C6` ''46j$( ')
+# e.crack('f w)0/6X0// -6C6` ''46j$( ')
+puts e.crack('\\qmz&%,N&%%q#,9,Vqxx*,`uyq')
