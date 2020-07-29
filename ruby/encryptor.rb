@@ -2,12 +2,10 @@ class Encryptor
   def run_program
     intro_message
     validate_password
+    user_info = collect_user_info
 
-    objective = ask_for_user_objective
-    message = ask_for_message
-    rotation = ask_for_rotation
-    run_encryption(message, rotation) if objective == 1
-    run_decryption(message, rotation) if objective == 2
+    run_encryption(user_info['message'], user_info['rotation']) if user_info['objective'] == 1
+    run_decryption(user_info['message'], user_info['rotation']) if user_info['objective'] == 2
   end
 
   def validate_password
@@ -24,8 +22,18 @@ class Encryptor
   end
 
   def check_password(password)
-    saved_password = encrypt('asdf', 13)
+    saved_password = encrypt('asdf', 0)
     password == saved_password
+  end
+
+  def collect_user_info
+    info = {}
+
+    info['objective'] = ask_for_user_objective
+    info['message'] = ask_for_message
+    info['rotation'] = ask_for_rotation
+
+    info
   end
 
   def intro_message
