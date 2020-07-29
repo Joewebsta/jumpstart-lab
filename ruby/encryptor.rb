@@ -1,27 +1,47 @@
 class Encryptor
   def run_program
-    collect_info
+    intro_message
+    objective = ask_for_user_objective
+    message = ask_for_message
+    rotation = ask_for_rotation
+
+    run_encryption(message, rotation) if objective == 1
+    run_decryption(message, rotation) if objective == 2
   end
 
-  def collect_info
-    puts 'Would you like to encrypt(e) or decrypt(d) a message?'
-    type = gets.chomp.strip.downcase
+  def intro_message
+    puts 'Welcome to the Encryptor program'
+  end
+
+  def ask_for_message
     puts 'What is your message?'
-    message = gets.chomp
-    puts 'What is your rotation value?'
-    rotation = gets.chomp.to_i
-
-    run_encryption(message, rotation, type) if type == 'e'
+    gets.chomp
   end
 
-  def run_encryption(message, rotation, type)
+  def ask_for_rotation
+    puts 'What is your rotation value?'
+    gets.chomp.to_i
+  end
+
+  def ask_for_user_objective
+    puts 'What would you like to do? Please select an option:'
+    puts '1 - Encrypt a message.'
+    puts '2 - Decrypt a message.'
+    gets.chomp.to_i
+  end
+
+  def run_encryption(message, rotation)
     encrypted_message = encrypt(message, rotation)
-    display_results(encrypted_message, type)
+    display_results(encrypted_message, 'e')
+  end
+
+  def run_decryption(message, rotation)
+    decrypted_message = decrypt(message, rotation)
+    display_results(decrypted_message, 'd')
   end
 
   def display_results(message, type)
     message_type = (type == 'e' ? 'encrypted' : 'decrypted')
-
     puts "Your #{message_type} message is: #{message}"
   end
 
