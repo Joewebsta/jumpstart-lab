@@ -20,7 +20,18 @@ class Encryptor
 
   def ask_for_rotation
     puts 'What is your rotation value?'
-    gets.chomp.to_i
+
+    loop do
+      rotation = gets.chomp.to_i
+
+      return rotation if valid_rotation_val?(rotation)
+
+      puts 'Please provide a number for the rotation:'
+    end
+  end
+
+  def valid_rotation_val?(rotation)
+    rotation.positive?
   end
 
   def ask_for_user_objective
