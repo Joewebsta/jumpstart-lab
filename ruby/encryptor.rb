@@ -1,12 +1,31 @@
 class Encryptor
   def run_program
     intro_message
+    validate_password
+
     objective = ask_for_user_objective
     message = ask_for_message
     rotation = ask_for_rotation
-
     run_encryption(message, rotation) if objective == 1
     run_decryption(message, rotation) if objective == 2
+  end
+
+  def validate_password
+    password = ask_for_password
+    if check_password(password) == false
+      puts 'incorrect password'
+      exit
+    end
+  end
+
+  def ask_for_password
+    puts 'Enter password:'
+    gets.chomp
+  end
+
+  def check_password(password)
+    saved_password = encrypt('asdf', 13)
+    password == saved_password
   end
 
   def intro_message
@@ -122,3 +141,7 @@ end
 
 e = Encryptor.new
 e.run_program
+
+#   TODO
+#     Add crack as option
+#     Add quit encryptor as option
