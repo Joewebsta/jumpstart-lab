@@ -24,10 +24,21 @@ class Encryptor
   end
 
   def ask_for_user_objective
-    puts 'What would you like to do? Please select an option:'
-    puts '1 - Encrypt a message.'
-    puts '2 - Decrypt a message.'
-    gets.chomp.to_i
+    options = ['1 - Encrypt a message.', '2 - Decrypt a message.']
+
+    puts 'Please select an option:'
+    loop do
+      puts options
+      objective_num = gets.chomp.to_i
+
+      return objective_num if valid_objective_num?(objective_num, options.length)
+
+      puts 'Please provide a valid option:'
+    end
+  end
+
+  def valid_objective_num?(num, tot_options)
+    num >= 1 && num <= tot_options
   end
 
   def run_encryption(message, rotation)
@@ -100,9 +111,3 @@ end
 
 e = Encryptor.new
 e.run_program
-
-# puts e.encrypt('Hello world', 13)
-# puts e.encrypt_file('secret.txt', 13)
-# puts e.decrypt_file('secret.txt.encrypted', 13)
-# e.crack('f w)0/6X0// -6C6` ''46j$( ')
-# puts e.crack('\\qmz&%,N&%%q#,9,Vqxx*,`uyq')
